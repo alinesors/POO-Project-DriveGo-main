@@ -1,0 +1,37 @@
+# Ignore arquivos e pastas gerados pelo sistema
+*.class
+*.log
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Ignore arquivos de compilação e dependências
+/build/
+out/
+target/
+*.jar
+*.war
+*.ear
+
+# Ignore configurações de IDEs
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+# Arquivos de sistema operacional
+*.~lock.*
+*.swp
+*.swo
+
+# Ignore repositório local do Maven
+.m2/repository/
