@@ -49,4 +49,8 @@ public class Cidade implements Serializable {
     public boolean isPermitirMoto() {
         return permitirMotoEntrega;
     }
+
+    public void setPermitirMoto(boolean permitirMoto) {
+        this.permitirMotoEntrega = permitirMoto;
+    }
 }

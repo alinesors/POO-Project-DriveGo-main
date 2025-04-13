@@ -42,7 +42,7 @@ public class RepositorioVeiculoArquivo implements IRepositorioVeiculo {
     @Override
     public Veiculo buscarVeiculo(String id) throws VeiculoRepositorioException {
         for (Veiculo veiculo : listarVeiculos()) {
-            if (veiculo.getPlaca().equalsIgnoreCase(id)) {
+            if (veiculo.getId().equalsIgnoreCase(id)) {
                 return veiculo;
             }
         }
@@ -53,21 +53,21 @@ public class RepositorioVeiculoArquivo implements IRepositorioVeiculo {
     public void atualizarVeiculo(Veiculo entidade) throws VeiculoRepositorioException {
         List<Veiculo> veiculos = listarVeiculos();
         for (int i = 0; i < veiculos.size(); i++) {
-            if (veiculos.get(i).getPlaca().equalsIgnoreCase(entidade.getPlaca())) {
+            if (veiculos.get(i).getId().equalsIgnoreCase(entidade.getId())) {
                 veiculos.set(i, entidade);
                 salvarArquivo(veiculos);
                 return;
             }
         }
-        throw new VeiculoRepositorioException("Veículo com placa " + entidade.getPlaca() + " não encontrado para atualização.");
+        throw new VeiculoRepositorioException("Veículo com Id " + entidade.getId() + " não encontrado para atualização.");
     }
 
     @Override
     public void removerVeiculo(Veiculo veiculo) throws VeiculoRepositorioException {
         List<Veiculo> veiculos = listarVeiculos();
-        boolean removido = veiculos.removeIf(v -> v.getPlaca().equalsIgnoreCase(veiculo.getPlaca()));
+        boolean removido = veiculos.removeIf(v -> v.getId().equalsIgnoreCase(veiculo.getId()));
         if (!removido) {
-            throw new VeiculoRepositorioException("Veículo com placa " + veiculo.getPlaca() + " não encontrado para remoção.");
+            throw new VeiculoRepositorioException("Veículo com placa " + veiculo.getId() + " não encontrado para remoção.");
         }
         salvarArquivo(veiculos);
     }

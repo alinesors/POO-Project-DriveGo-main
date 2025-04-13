@@ -24,7 +24,8 @@ public class ConsoleUI {
                 System.out.println("3. Sair");
                 System.out.print("Escolha uma opção: ");
                 
-                opcao = Integer.parseInt(scanner.nextLine());
+                opcao = scanner.nextInt();
+                scanner.nextLine();
 
                 switch (opcao) {
                     case 1 -> menuUsuarios.exibirMenu(scanner);
@@ -33,9 +34,7 @@ public class ConsoleUI {
                     default -> System.out.println("Opção inválida! Tente novamente.");
                 }
 
-            } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida! Digite um número de 1 a 3.");
-            } catch (DadosInvalidosException e) {
+            }catch (DadosInvalidosException e) {
                 System.out.println("Erro inesperado: " + e.getMessage());
             }
 

@@ -27,8 +27,8 @@ public class MenuPagamentos {
                 System.out.println("4. Remover Forma de Pagamento");
                 System.out.println("5. Voltar");
                 System.out.print("Escolha uma opção: ");
-                opcao = Integer.parseInt(scanner.nextLine());
-
+                opcao = scanner.nextInt();
+                scanner.nextLine();
                 switch (opcao) {
                     case 1 -> cadastrarFormaDePagamento(scanner, cliente);
                     case 2 -> listarFormasDePagamento(cliente);
@@ -37,8 +37,8 @@ public class MenuPagamentos {
                     case 5 -> System.out.println("Voltando...");
                     default -> System.out.println("Opção inválida!");
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida! Digite um número.");
+            } catch (DadosInvalidosException e) {
+                System.out.println("Erro: " + e.getMessage());
             }
         } while (opcao != 5);
     }
@@ -49,7 +49,8 @@ public class MenuPagamentos {
             System.out.println("1. Cartão de Crédito");
             System.out.println("2. Pix");
             System.out.print("Escolha uma opção: ");
-            int tipo = Integer.parseInt(scanner.nextLine());
+            int tipo = scanner.nextInt();
+            scanner.nextLine();
 
             FormaDePagamento forma;
             switch (tipo) {
@@ -77,8 +78,6 @@ public class MenuPagamentos {
                 System.out.println("Pagamento cadastrado com sucesso!");
             }
 
-        } catch (NumberFormatException e) {
-            System.out.println("Número inválido. Tente novamente.");
         } catch (DadosInvalidosException | PersistenciaException e) {
             System.out.println("Erro ao cadastrar: " + e.getMessage());
         }
@@ -128,8 +127,6 @@ public class MenuPagamentos {
 
         } catch (DadosInvalidosException | EntidadeNaoEncontradaException | PersistenciaException e) {
             System.out.println("Erro ao atualizar: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            System.out.println("Valor inválido.");
         }
     }
 

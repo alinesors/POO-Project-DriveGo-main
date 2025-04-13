@@ -94,7 +94,7 @@ public class ViagemServico {
     public boolean haDisponibilidade() throws DadosInvalidosException, ViagemRepositorioException, ViagemNaoAceitaException, UsuarioRepositorioException {
         List<Motorista> motoristas = repositorioUsuario.listarMotoristasDisponiveis(); // Verifica se há motoristas disponíveis
         if(motoristas.isEmpty()){
-            throw new ViagemNaoAceitaException("Nenhum motorista disponível.");
+            throw new ViagemNaoAceitaException("Nenhum motorista disponível. oii");
         }
         return true; // Retorna verdadeiro se houver motoristas disponíveis
     }

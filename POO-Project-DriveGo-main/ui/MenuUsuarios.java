@@ -29,8 +29,8 @@ public class MenuUsuarios {
                 System.out.println("8. Gerenciar forma de pagamento de um cliente.");
                 System.out.println("9. Voltar");
                 System.out.print("Escolha uma opção: ");
-                opcao = Integer.parseInt(scanner.nextLine());
-
+                opcao = scanner.nextInt();
+                scanner.nextLine(); 
                 switch (opcao) {
                     case 1 -> cadastrarCliente(scanner);
                     case 2 -> cadastrarMotorista(scanner);
@@ -48,9 +48,8 @@ public class MenuUsuarios {
                     case 9 -> System.out.println("Voltando...");
                     default -> System.out.println("Opção inválida!");
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("Digite um número válido.");
             } catch (EntidadeNaoEncontradaException | PersistenciaException | VeiculoRepositorioException e) {
+                System.out.println("Erro: " + e.getMessage());
             }
         } while (opcao != 9);
     }
@@ -113,8 +112,8 @@ public class MenuUsuarios {
 
             System.out.println("Motorista cadastrado com sucesso!");
             System.out.println("Tentar validar o motorista? (1 - Sim, 2 - Não): ");
-            int opcao = Integer.parseInt(scanner.nextLine());
-
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
             switch (opcao) {
                 case 1 -> {
                     motorista.validarMotorista(motorista.getCnh(), motorista.getCpf(), motorista.getTipoVeiculo());
@@ -131,9 +130,7 @@ public class MenuUsuarios {
             }
 
 
-        } catch (NumberFormatException e) {
-            System.out.println("Erro de número: " + e.getMessage());
-        } catch (DadosInvalidosException | PersistenciaException | VeiculoRepositorioException | EntidadeNaoEncontradaException e) {
+        }catch (DadosInvalidosException | PersistenciaException | VeiculoRepositorioException | EntidadeNaoEncontradaException e) {
             System.out.println("Erro: " + e.getMessage());
         }
     }
@@ -217,16 +214,16 @@ public class MenuUsuarios {
                 System.out.println("3. Luxo");
                 System.out.println("4. Econômico");
                 System.out.print("Escolha uma opção: ");
-                Veiculo veiculo = criarVeiculo(scanner);
+                Veiculo veiculo = atualizarVeiculo(scanner, motorista.getTipoVeiculo());
                 if (veiculo == null) {
                     System.out.println("Veículo inválido!");
                     return;
                 }
-                fachada.cadastrarVeiculo(veiculo);
-                motorista.setTipoVeiculo(veiculo);
+                fachada.atualizarVeiculo(veiculo);
 
                 System.out.println("Tentar validar o motorista? (1 - Sim, 2 - Não): ");
-                int opcao = Integer.parseInt(scanner.nextLine());
+                int opcao = scanner.nextInt();
+                scanner.nextLine();
 
                 switch (opcao) {
                     case 1 -> {
@@ -285,16 +282,19 @@ public class MenuUsuarios {
     private Veiculo criarVeiculo(Scanner scanner) {
         try {
             int tipo = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer do scanner
             while(tipo < 1 || tipo > 4) {
                 System.out.println("Tipo inválido! Tente novamente: ");
                 tipo = scanner.nextInt();
+                scanner.nextLine(); // Limpar o buffer do scanner
             }
             System.out.print("Marca: ");
             String marca = scanner.nextLine();
             System.out.print("Cor: ");
             String cor = scanner.nextLine();
             System.out.print("Ano de fabricação: ");
-            int ano = Integer.parseInt(scanner.nextLine());
+            int ano = scanner.nextInt();
+            scanner.nextLine();
             System.out.print("Placa: ");
             String placa = scanner.nextLine();
             return switch (tipo) {
@@ -302,6 +302,66 @@ public class MenuUsuarios {
                 case 2 -> new Motocicleta("Motocicleta", marca, cor, ano, placa);
                 case 3 -> new Luxo("Luxo", marca, cor, ano, placa);
                 case 4 -> new Economico("Econômico", marca, cor, ano, placa);
+                default -> null;
+            };
+        } catch (Exception e) {
+            System.out.println("Numero não inserido corretamente!");
+            return null;
+        } 
+    }
+
+    @SuppressWarnings("UseSpecificCatch")
+    private Veiculo atualizarVeiculo(Scanner scanner, Veiculo veiculo) {
+        try {
+            int tipo = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer do scanner
+            while(tipo < 1 || tipo > 4) {
+                System.out.println("Tipo inválido! Tente novamente: ");
+                tipo = scanner.nextInt();
+                scanner.nextLine(); // Limpar o buffer do scanner
+            }
+            System.out.print("Marca: ");
+            String marca = scanner.nextLine();
+            System.out.print("Cor: ");
+            String cor = scanner.nextLine();
+            System.out.print("Ano de fabricação: ");
+            int ano = scanner.nextInt();
+            scanner.nextLine();
+            System.out.print("Placa: ");
+            String placa = scanner.nextLine();
+            return switch (tipo) {
+                case 1 -> {
+                    veiculo.setModelo("SUV");
+                    veiculo.setMarca(marca);
+                    veiculo.setCor(cor);
+                    veiculo.setAnoFabricacao(ano);
+                    veiculo.setPlaca(placa);
+                    yield veiculo;
+                }
+                case 2 -> {
+                    veiculo.setModelo("Motocicleta");
+                    veiculo.setMarca(marca);
+                    veiculo.setCor(cor);
+                    veiculo.setAnoFabricacao(ano);
+                    veiculo.setPlaca(placa);
+                    yield veiculo;
+                }
+                case 3 -> {
+                    veiculo.setModelo("Luxo");
+                    veiculo.setMarca(marca);
+                    veiculo.setCor(cor);
+                    veiculo.setAnoFabricacao(ano);
+                    veiculo.setPlaca(placa);
+                    yield veiculo;
+                }
+                case 4 -> {
+                    veiculo.setModelo("Econômico");
+                    veiculo.setMarca(marca);
+                    veiculo.setCor(cor);
+                    veiculo.setAnoFabricacao(ano);
+                    veiculo.setPlaca(placa);
+                    yield veiculo;
+                }
                 default -> null;
             };
         } catch (Exception e) {

@@ -20,12 +20,12 @@ public class MenuCidades {
                 System.out.println("\n=== Gerenciar Cidades ===");
                 System.out.println("1. Cadastrar Cidade");
                 System.out.println("2. Listar Cidades");
-                System.out.println("3. Atualizar Ciadade");
+                System.out.println("3. Atualizar Cidade");
                 System.out.println("4. Remover Cidade");
                 System.out.println("5. Voltar");
                 System.out.print("Escolha uma opção: ");
-                opcao = Integer.parseInt(scanner.nextLine());
-
+                opcao = scanner.nextInt();
+                scanner.nextLine();
                 switch (opcao) {
                     case 1 -> cadastrarCidade(scanner);
                     case 2 -> listarCidades();
@@ -34,7 +34,7 @@ public class MenuCidades {
                     case 5 -> System.out.println("Voltando...");
                     default -> System.out.println("Opção inválida!");
                 }
-            } catch (NumberFormatException e) {
+            } catch (Exception e) {
                 System.out.println("Digite um número válido.");
             }
         } while (opcao != 5);
@@ -65,7 +65,7 @@ public class MenuCidades {
 
             System.out.println("Cidade cadastrado!");
 
-        } catch (DadosInvalidosException | NumberFormatException | PersistenciaException e) {
+        } catch (DadosInvalidosException | PersistenciaException e) {
             System.out.println("Erro: " + e.getMessage());
         }
     }
@@ -89,18 +89,21 @@ public class MenuCidades {
 
     private void atualizarCidade(Scanner scanner) {
         try {
+            System.out.print("ID: ");
+            String id = scanner.nextLine();
+            Cidade cidade = fachada.buscarCidade(id);
             System.out.println("Digite o novo nome da cidade:");
             String nome = scanner.nextLine();
             System.out.println("Permitir entrega e viagem por moto? (S/N):");
             String permitirMotoStr = scanner.nextLine();
-            Cidade cidade;
+            cidade.setNome(nome);
             switch (permitirMotoStr.toUpperCase()) {
                 case "S" -> {
-                    cidade = new Cidade(nome, true);
+                    cidade.setPermitirMoto(true);
                     fachada.atualizarCidade(cidade);
                 }
                 case "N" -> {
-                    cidade = new Cidade(nome, false);
+                    cidade.setPermitirMoto(false);
                     fachada.atualizarCidade(cidade);
                 }
                 default -> {
@@ -122,7 +125,7 @@ public class MenuCidades {
             System.out.print("ID: ");
             String id = scanner.nextLine();
             Cidade cidade = fachada.buscarCidade(id);
-            fachada.removerCidade(cidade.getNome());
+            fachada.removerCidade(cidade.getId());
             System.out.println("Removido com sucesso!");
         } catch (DadosInvalidosException | EntidadeNaoEncontradaException | PersistenciaException e) {
             System.out.println("Erro: " + e.getMessage());

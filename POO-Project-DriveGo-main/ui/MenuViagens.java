@@ -52,9 +52,11 @@ public class MenuViagens { //Verificar a situação das cidades
                     default -> System.out.println("Opção inválida!");
                 }
 
-            } catch (ViagemNaoAceitaException | UsuarioRepositorioException e) {
+            } catch ( UsuarioRepositorioException e) {
                 System.out.println("Digite um número válido.");
-            }
+            } catch (ViagemNaoAceitaException e) {
+                System.out.println("Nenhum motorista disponível! " + e.getMessage());
+            } 
         } while (opcao != 10);
     }
 
@@ -88,7 +90,8 @@ public class MenuViagens { //Verificar a situação das cidades
             Destino destino = coletarDestino(scanner);
 
             System.out.println("\n=== Valor da viagem ===");
-            double valor = Integer.parseInt(scanner.nextLine());
+            double valor = scanner.nextInt();
+            scanner.nextLine();
 
             Cliente cliente = fachada.buscarClientePorId(clienteId);
             List<FormaDePagamento> formas = fachada.listarFormasDePagamentoPorCliente(clienteId);
@@ -116,7 +119,8 @@ public class MenuViagens { //Verificar a situação das cidades
             System.out.println("1. Passageiro");
             System.out.println("2. Entrega");
             System.out.print("Escolha: ");
-            int op = Integer.parseInt(scanner.nextLine());
+            int op = scanner.nextInt();
+            scanner.nextLine();
             while (op != 1 && op != 2) {
                 throw new DadosInvalidosException("Tipo de viagem inválido.");
             }
@@ -145,13 +149,13 @@ public class MenuViagens { //Verificar a situação das cidades
             fachada.cadastrarViagem(viagem);
             System.out.println("Viagem cadastrada!");
 
-        } catch (DadosInvalidosException | EntidadeNaoEncontradaException | PersistenciaException | ViagemRepositorioException | NumberFormatException | FormaDePagamentoNaoCadastradaException e) {
+        } catch (DadosInvalidosException | EntidadeNaoEncontradaException | PersistenciaException | ViagemRepositorioException  | FormaDePagamentoNaoCadastradaException e) {
             System.out.println("Erro: " + e.getMessage());
         }
     }
 
     private Origem coletarOrigem(Scanner scanner) throws DadosInvalidosException, PersistenciaException, EntidadeNaoEncontradaException {
-        System.out.print("Cidade: ");
+        System.out.print("Cidade: \n");
         List<Cidade> cidades = fachada.listarCidades();
         if (cidades.isEmpty()) {
             throw new DadosInvalidosException("Nenhuma cidade cadastrada. Cadastre uma cidade para utilizar o aplicativo");
@@ -185,7 +189,7 @@ public class MenuViagens { //Verificar a situação das cidades
     }
 
     private Destino coletarDestino(Scanner scanner) throws DadosInvalidosException, PersistenciaException, EntidadeNaoEncontradaException {
-        System.out.print("Cidade: ");
+        System.out.print("Cidade: \n");
         List<Cidade> cidades = fachada.listarCidades();
         if (cidades.isEmpty()) {
             throw new DadosInvalidosException("Nenhuma cidade cadastrada. Cadastre uma cidade para utilizar o aplicativo");
@@ -307,7 +311,7 @@ public class MenuViagens { //Verificar a situação das cidades
             fachada.atualizarViagem(v);
             System.out.println("Viagem atualizada!");
 
-        } catch (DadosInvalidosException | EntidadeNaoEncontradaException | ViagemRepositorioException | NumberFormatException | PersistenciaException e) {
+        } catch (DadosInvalidosException | EntidadeNaoEncontradaException | ViagemRepositorioException  | PersistenciaException e) {
             System.out.println("Erro: " + e.getMessage());
         }
     }
@@ -342,7 +346,8 @@ public class MenuViagens { //Verificar a situação das cidades
             String resposta = scanner.nextLine();
             if (resposta.equalsIgnoreCase("S")) {
                 System.out.print("Digite a nota (1 a 5): ");
-                int nota = Integer.parseInt(scanner.nextLine());
+                int nota = scanner.nextInt();
+                scanner.nextLine();
                 while (nota < 1 || nota > 5) {
                     throw new DadosInvalidosException("Nota inválida. Deve ser entre 1 e 5.");
                 }
@@ -360,7 +365,8 @@ public class MenuViagens { //Verificar a situação das cidades
             resposta = scanner.nextLine();
             if (resposta.equalsIgnoreCase("S")) {
                 System.out.print("Digite a nota (1 a 5): ");
-                int nota = Integer.parseInt(scanner.nextLine());
+                int nota = scanner.nextInt();
+                scanner.nextLine();
                 while (nota < 1 || nota > 5) {
                     throw new DadosInvalidosException("Nota inválida. Deve ser entre 1 e 5.");
                 }

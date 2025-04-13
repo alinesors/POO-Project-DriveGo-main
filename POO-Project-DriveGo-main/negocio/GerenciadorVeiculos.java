@@ -57,11 +57,11 @@ public class GerenciadorVeiculos {
     }
 
     /// Método para remover um veículo
-    public void removerVeiculo(String placa) throws DadosInvalidosException, EntidadeNaoEncontradaException, VeiculoRepositorioException {
-        if (placa == null || placa.isEmpty()) { // Verifica se a placa é nula ou vazia
-            throw new DadosInvalidosException("A placa do veículo não pode ser nula ou vazia.");
+    public void removerVeiculo(String id) throws DadosInvalidosException, EntidadeNaoEncontradaException, VeiculoRepositorioException {
+        if (id == null || id.isEmpty()) { // Verifica se a id é nula ou vazia
+            throw new DadosInvalidosException("A id do veículo não pode ser nula ou vazia.");
         }
-        veiculoServico.removerVeiculo(placa);
+        veiculoServico.removerVeiculo(id);
     }
 
     /// Método para listar veículos por tipo

@@ -54,7 +54,7 @@ public class RepositorioCidadeArquivo implements IRepositorioCidade {
     public void atualizarCidade(Cidade cidade) throws CidadeRepositorioException {
         cidades = listarCidades();
         for (int i = 0; i < cidades.size(); i++) {
-            if (cidades.get(i).getNome().equalsIgnoreCase(cidade.getNome())) {
+            if (cidades.get(i).getId().equalsIgnoreCase(cidade.getId())) {
                 cidades.set(i, cidade);
                 salvar(cidades);
     

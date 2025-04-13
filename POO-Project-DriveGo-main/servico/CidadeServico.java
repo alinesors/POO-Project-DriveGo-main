@@ -65,12 +65,12 @@ public class CidadeServico {
     //método para atualizar uma cidade existente
     //esse método recebe um objeto cidade e verifica se ele é válido
     public void atualizarCidade(Cidade cidade) throws DadosInvalidosException, EntidadeNaoEncontradaException, PersistenciaException {
-        if (cidade == null || cidade.getNome() == null || cidade.getNome().isEmpty()) {
+        if (cidade == null || cidade.getId() == null || cidade.getId().isEmpty()) {
             throw new DadosInvalidosException("A cidade é inválida para atualização.");
         }
 
         try {
-            if (repositorioCidade.buscarCidade(cidade.getNome()) == null) {
+            if (repositorioCidade.buscarCidade(cidade.getId()) == null) {
                 throw new EntidadeNaoEncontradaException("Cidade com nome '" + cidade.getNome() + "' não encontrada para atualização.");
             }
 
@@ -80,15 +80,15 @@ public class CidadeServico {
         }
     }
     //método para remover uma cidade existente
-    public void removerCidade(String nome) throws DadosInvalidosException, EntidadeNaoEncontradaException, PersistenciaException {
-        if (nome == null || nome.isEmpty()) {
-            throw new DadosInvalidosException("O nome da cidade para remoção não pode ser nulo ou vazio.");
+    public void removerCidade(String id) throws DadosInvalidosException, EntidadeNaoEncontradaException, PersistenciaException {
+        if (id == null || id.isEmpty()) {
+            throw new DadosInvalidosException("O id da cidade para remoção não pode ser nulo ou vazio.");
         }
 
         try {
-            Cidade cidade = repositorioCidade.buscarCidade(nome); //essa linha busca a cidade pelo nome
+            Cidade cidade = repositorioCidade.buscarCidade(id); //essa linha busca a cidade pelo id
             if (cidade == null) {
-                throw new EntidadeNaoEncontradaException("Cidade com nome '" + nome + "' não encontrada para remoção.");
+                throw new EntidadeNaoEncontradaException("Cidade com id '" + id + "' não encontrada para remoção.");
             }
 
             repositorioCidade.removerCidade(cidade); //essa linha remove a cidade do repositório

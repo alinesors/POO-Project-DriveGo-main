@@ -43,22 +43,22 @@ public class VeiculoServico {
     }
     //método para atualizar os dados de um veículo
     public void atualizarVeiculo(Veiculo veiculo) throws DadosInvalidosException, VeiculoRepositorioException {
-        if (veiculo == null || veiculo.getPlaca() == null || veiculo.getPlaca().isEmpty()) { //verifica se o veículo é nulo ou se a placa é nula ou vazia
-            throw new DadosInvalidosException("Veículo ou placa inválida.");
+        if (veiculo == null || veiculo.getId() == null || veiculo.getId().isEmpty()) { //verifica se o veículo é nulo ou se a Id é nula ou vazia
+            throw new DadosInvalidosException("Veículo ou Id inválida.");
         }
-        if (repositorioVeiculo.buscarVeiculo(veiculo.getPlaca()) == null) { //busca o veículo no repositório
-            throw new VeiculoRepositorioException("Veículo com placa " + veiculo.getPlaca() + " não encontrado para atualização.");
+        if (repositorioVeiculo.buscarVeiculo(veiculo.getId()) == null) { //busca o veículo no repositório
+            throw new VeiculoRepositorioException("Veículo com Id " + veiculo.getId() + " não encontrado para atualização.");
         }
         repositorioVeiculo.atualizarVeiculo(veiculo);
     }
     //método para remover um veículo
-    public void removerVeiculo(String placa) throws DadosInvalidosException, VeiculoRepositorioException { //verifica se a placa é nula ou vazia
-        if (placa == null || placa.isEmpty()) { //verifica se a placa é nula ou vazia
-            throw new DadosInvalidosException("Placa inválida.");
+    public void removerVeiculo(String id) throws DadosInvalidosException, VeiculoRepositorioException { //verifica se a id é nula ou vazia
+        if (id == null || id.isEmpty()) { //verifica se a id é nula ou vazia
+            throw new DadosInvalidosException("id inválida.");
         }
-        Veiculo veiculo = repositorioVeiculo.buscarVeiculo(placa);
+        Veiculo veiculo = repositorioVeiculo.buscarVeiculo(id);
         if (veiculo == null) {
-            throw new VeiculoRepositorioException("Veículo com placa " + placa + " não encontrado para remoção.");
+            throw new VeiculoRepositorioException("Veículo com id " + id + " não encontrado para remoção.");
         }
         repositorioVeiculo.removerVeiculo(veiculo);
     }

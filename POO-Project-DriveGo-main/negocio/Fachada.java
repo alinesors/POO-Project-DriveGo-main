@@ -123,8 +123,8 @@ public class Fachada {
         gerenciadorVeiculos.atualizarVeiculo(veiculo);
     }
 
-    public void removerVeiculo(String placa) throws DadosInvalidosException, VeiculoRepositorioException, EntidadeNaoEncontradaException {
-        gerenciadorVeiculos.removerVeiculo(placa);
+    public void removerVeiculo(String id) throws DadosInvalidosException, VeiculoRepositorioException, EntidadeNaoEncontradaException {
+        gerenciadorVeiculos.removerVeiculo(id);
     }
 
     public List<Veiculo> listarVeiculosPorTipo(String tipo) throws DadosInvalidosException, VeiculoRepositorioException {
